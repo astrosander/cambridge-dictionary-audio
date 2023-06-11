@@ -1,8 +1,8 @@
-# cambridge-dictionary-audio <img align="center"  width="38px" src="logo.png" />
+# cambridge-dictionary-audio <img align="center"  width="38px" src="Design/logo.png" />
 
 This is a python program which may scrape <b>audio files</b> of word pronunciations from the <a href="http://dictionary.cambridge.org">dictionary.cambridge.org</a>
 
-![](Presentation.gif)
+![](Design/Presentation.gif)
 
 ## Quick start▶️
 
