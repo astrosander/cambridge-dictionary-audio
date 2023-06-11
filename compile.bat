@@ -1,0 +1,1 @@
+pyinstaller --noconfirm --onefile --console --icon "D:/coding/cambridge-audio-downloader/logo.ico"  "D:/coding/cambridge-audio-downloader/main.py"
