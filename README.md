@@ -2,7 +2,8 @@
 
 This is a python program which may scrape <b>audio files</b> of word pronunciations from the <a href="http://dictionary.cambridge.org">dictionary.cambridge.org</a>
 
-![](Design/Presentation.gif)
+<img src="Design/Presen.gif" width="800"/>
+
 
 ## Quick start▶️
 
