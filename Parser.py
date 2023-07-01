@@ -30,18 +30,32 @@ def get_phonetics(
         if "uk" in parent_class:
             uk_audio_links.append(result_audio_link)
 
+    ipa = header_block.find_all("span", {"class": "pron dpron"})
+
+    prev_ipa_parrent: str = ""
+    for child in ipa:
+        ipa_parent = child.parent.get("class")
+
+        if ipa_parent is None:
+            ipa_parent = prev_ipa_parrent
+        else:
+            prev_ipa_parrent = ipa_parent
+
+        if "uk" in ipa_parent:
+            print('\033[93m'+child.text+'\033[93m')
+
     return uk_audio_links
 
 
 
-def define(word, save_path,
+def define(word, save_path,f,mode,
            request_headers: Optional[dict]=None,  
            timeout:float=5.0):
 
     if request_headers is None:
         request_headers = DEFAULT_REQUESTS_HEADERS
     
-    link = f"{LINK_PREFIX}/dictionary/english/{word}"
+    link = f"{LINK_PREFIX}/dictionary/{mode}/{word}"
 
     page = requests.get(link, headers=request_headers, timeout=timeout)
 
@@ -60,33 +74,56 @@ def define(word, save_path,
         main_block.extend(primal_block[dictionary_index].find_all("div", {"class": "pr idiom-block"}))
 
         for entity in main_block:
-            header_block = entity.find("div", {"class": "dpos-h"})
-
-            parsed_word_block = entity.find("h2", {"class": "headword"})
-            
-            if parsed_word_block is None:
-                parsed_word_block = header_block.find("h2", {"class": "di-title"}) if header_block is not None else None
-            if parsed_word_block is None:
-                parsed_word_block = header_block.find("div", {"class": "di-title"}) if header_block is not None else None
-            header_word = parsed_word_block.text if parsed_word_block is not None else ""
-
-            uk_audio_links = get_phonetics(header_block)
-
-            try:
-                ans = uk_audio_links[0]
-
-                page = requests.get(ans, headers=request_headers, timeout=timeout)
 
 
-                with open(save_path,'wb') as f:
-                    f.write(page.content)
+            if f == 0:
+                header_block = entity.find("div", {"class": "dpos-h"})
 
-                print('Succeful file downloaded to ' + save_path)
+                parsed_word_block = entity.find("h2", {"class": "headword"})
+                
+                if parsed_word_block is None:
+                    parsed_word_block = header_block.find("h2", {"class": "di-title"}) if header_block is not None else None
+                if parsed_word_block is None:
+                    parsed_word_block = header_block.find("div", {"class": "di-title"}) if header_block is not None else None
+                header_word = parsed_word_block.text if parsed_word_block is not None else ""
 
-                return ans
+                uk_audio_links = get_phonetics(header_block)
 
-                break
+                if ans == "" :
+                    try:
+                        ans = uk_audio_links[0]
 
-            except: pass
+
+                        page = requests.get(ans, headers=request_headers, timeout=timeout)
+
+
+                        with open(save_path,'wb') as f:
+                            f.write(page.content)
+
+
+
+                        print('\033[92mSucceful file downloaded to \033[92m\033[96m' + save_path+'\033[96m')
+
+                        return ans
+
+
+                    except: pass
+
+            else:
+                for def_and_sent_block in entity.find_all("div", {'class': 'def-block ddef_block'}):
+                    image_section = def_and_sent_block.find("div", {"class": "dimg"})
+
+                    sentences_and_translation_block = def_and_sent_block.find("div", {"class": "def-body"})
+                    
+                    sentence_blocks = []
+                    x=[]
+                    if sentences_and_translation_block is not None:
+                        definition_translation_block = sentences_and_translation_block.find(
+                            lambda tag: tag.name == "span" and any(class_attr == "trans" for class_attr in tag.attrs.get("class", []))) 
+
+                        x = definition_translation_block.text if definition_translation_block is not None else ""
+                        sentence_blocks = sentences_and_translation_block.find_all("div", {"class": "examp dexamp"})
+                        # print(f'\033[94m{x}\033[94m')
+                        print(x)
 
     return ans
