@@ -32,6 +32,12 @@ open start.bat
 
 After launching, you will need to enter a word or phrase and then wait about 1-2 seconds. Once downloaded, the .mp3 file will appear in the folder and the sound will play automatically.
 
+## Commands ⌨️
+
+```/r``` - remove all ```.mp3``` in the current folder
+
+```/m``` - enable/disable automatic audio playback
+
 ##  Plans for future📜
 <ul>
   <li>Add a display of transcriptions and translations <img align="center"  width="16px" src="https://github.com/astrosander/WallTime/blob/main/Themes/Google_Translate.png" /> </li>
