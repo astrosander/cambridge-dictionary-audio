@@ -36,10 +36,14 @@ def commands(word):
 def Start():
 	global playing
 	word = input('\033[95mEnter the word you wish to load here: \033[91m')
-    
+
+
+	if(len(word) == 0):
+		os.system('cls')
+		Start()
+
 	if word[0] == '/':
 		commands(word)
-
 
 	os.system('cls')
 	print(word)
