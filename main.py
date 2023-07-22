@@ -1,7 +1,9 @@
 import Parser
 import os, time
 import playsound
+import combine
 
+	
 native = "russian"#select your native language
 
 os.system('cls')
@@ -33,9 +35,10 @@ def commands(word):
 	Start()
 	return 0
 
+
 def Start():
 	global playing
-	word = input('\033[95mEnter the word you wish to load here: \033[91m')
+	word = input('\033[95mEnter the word you wish to load here: \033[91m').strip()
 
 
 	if(len(word) == 0):
@@ -53,16 +56,21 @@ def Start():
 	print("\033[92mDownloading..\033[92m")
 	
 	try:
-		Parser.define(word, save_path, 0, 'english')
+		Parser.define(word, save_path, 0, 1, 'english')
 		if playing:
 			playsound.playsound(save_path, True)
 
 	except:
 		print("\033[91mSuch word wasn't found\033[91m")
+		
+		if (combine.comb(word) and playing):
+			
+			playsound.playsound(save_path, True)
+
 
 	try:
 		print('\033[94m\033[94m')
-		Parser.define(word, save_path, 1, f"english-{native}")
+		Parser.define(word, save_path, 1, 1, f"english-{native}")
 	except:
 		pass
 
@@ -71,4 +79,5 @@ def Start():
 
 	Start()
 
-Start()
+if __name__ == "__main__":
+	Start()

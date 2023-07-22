@@ -7,7 +7,7 @@ LINK_PREFIX = "https://dictionary.cambridge.org"
     
 
 def get_phonetics(
-    header_block: Optional[bs4.Tag]):
+    header_block: Optional[bs4.Tag], printable):
 
     uk_audio_links: list[str] = []
 
@@ -41,14 +41,14 @@ def get_phonetics(
         else:
             prev_ipa_parrent = ipa_parent
 
-        if "uk" in ipa_parent:
+        if ("uk" in ipa_parent) and printable:
             print('\033[93m'+child.text+'\033[93m')
 
     return uk_audio_links
 
 
 
-def define(word, save_path,f,mode,
+def define(word, save_path,f,printable,mode,
            request_headers: Optional[dict]=None,  
            timeout:float=5.0):
 
@@ -87,7 +87,7 @@ def define(word, save_path,f,mode,
                     parsed_word_block = header_block.find("div", {"class": "di-title"}) if header_block is not None else None
                 header_word = parsed_word_block.text if parsed_word_block is not None else ""
 
-                uk_audio_links = get_phonetics(header_block)
+                uk_audio_links = get_phonetics(header_block, printable)
 
                 if ans == "" :
                     try:
@@ -101,8 +101,8 @@ def define(word, save_path,f,mode,
                             f.write(page.content)
 
 
-
-                        print('\033[92mSucceful file downloaded to \033[92m\033[96m' + save_path+'\033[96m')
+                        if printable:
+                            print('\033[92mSucceful file downloaded to \033[92m\033[96m' + save_path+'\033[96m')
 
                         return ans
 
@@ -123,7 +123,8 @@ def define(word, save_path,f,mode,
 
                         x = definition_translation_block.text if definition_translation_block is not None else ""
                         sentence_blocks = sentences_and_translation_block.find_all("div", {"class": "examp dexamp"})
-                        # print(f'\033[94m{x}\033[94m')
-                        print(x)
+                        
+                        if printable:
+                            print(x)
 
     return ans
