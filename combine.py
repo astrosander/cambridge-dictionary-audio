@@ -1,6 +1,7 @@
 import Parser
 from pydub import AudioSegment
 import os
+from alive_progress import alive_bar
 
 def merge_and_normalize_audio(file_paths, output_path, delay_ms=1000):
     audio_segments = [AudioSegment.from_file(file_path) for file_path in file_paths]
@@ -13,11 +14,12 @@ def merge_and_normalize_audio(file_paths, output_path, delay_ms=1000):
         normalized_audio = audio_segment + volume_diff
         normalized_audio_segments.append(normalized_audio)
     
-    silence_segment = AudioSegment.silent(duration=delay_ms)
+    # silence_segment = AudioSegment.silent(duration=delay_ms)
 
     merged_audio = reference_audio
     for normalized_audio in normalized_audio_segments:
-        merged_audio += silence_segment + normalized_audio
+    	merged_audio += normalized_audio
+        #merged_audio += silence_segment + normalized_audio
 
     merged_audio.export(output_path, format="mp3")
 
@@ -29,19 +31,28 @@ def comb(word):
 	print("\033[93mTrying a combining method\033[93m")
 
 	raw_music = []
-	for element in words:
-		save_path = f"{folder_path}\\{element}.mp3"
+	with alive_bar(len(words)) as bar:
+		for element in words:
+			save_path = f"{folder_path}\\{element}.mp3"
 
-		try:
-			Parser.define(element, save_path, 0, 0, 'english')
-		except:
-			pass
+			try:
+				Parser.define(element, save_path, 0, 0, 'english')
+			except:
+				pass
 
-		if os.path.exists(save_path):
-			raw_music.append(save_path)
+			if os.path.exists(save_path):
+				raw_music.append(save_path)
+
+			bar()
 
 	if len(raw_music) == 0: return 0
 
-	merge_and_normalize_audio(raw_music, word + ".mp3", 200)
+	merge_and_normalize_audio(raw_music, word + ".mp3", 0)
+
+	for mp3_file in raw_music:
+		try:
+			os.remove(mp3_file)
+		except:
+			pass
 
 	return 1

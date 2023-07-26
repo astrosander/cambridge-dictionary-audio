@@ -40,6 +40,8 @@ def Start():
 	global playing
 	word = input('\033[95mEnter the word you wish to load here: \033[91m').strip()
 
+	for ele in '''!()[]{};:'",<>.?@#$%^&*_~''':
+		word = word.replace(ele, "")
 
 	if(len(word) == 0):
 		os.system('cls')
