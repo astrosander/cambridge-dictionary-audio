@@ -40,6 +40,8 @@ def Start():
 	global playing
 	word = input('\033[95mEnter the word you wish to load here: \033[91m').strip()
 
+	start = time.time()
+
 	for ele in '''!()[]{};:'",<>.?@#$%^&*_~''':
 		word = word.replace(ele, "")
 
@@ -57,12 +59,14 @@ def Start():
 	
 	print("\033[92mDownloading..\033[92m")
 	
-	try:
-		Parser.define(word, save_path, 0, 1, 'english')
+	
+
+	Parser.define(word, save_path, 0, 1, 'english')
+
+	if os.path.exists(save_path):
 		if playing:
 			playsound.playsound(save_path, True)
-
-	except:
+	else:
 		print("\033[91mSuch word wasn't found\033[91m")
 		
 		if (combine.comb(word) and playing):
@@ -76,7 +80,7 @@ def Start():
 	except:
 		pass
 
-	
+	print("\n\033[93m{:.2f}".format(time.time() - start) + " sec")
 	print('\n')
 
 	Start()
