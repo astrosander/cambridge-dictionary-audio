@@ -1,17 +1,17 @@
-# cambridge-dictionary-audio <img align="center"  width="38px" src="Design/logo.png" />
+<h1><p align="center">cambridge-dictionary-audio</p></h1>
 
-This is a python program which may scrape <b>audio files</b> of word pronunciations from the <a href="http://dictionary.cambridge.org">dictionary.cambridge.org</a>
-
-<img src="Design/Presen.gif" width="800"/>
+<p align="center">
+  <a href="https://github.com/astrosander/cambridge-dictionary-audio" target="blank"><img src="Design/logo.png" width="120" alt="Logo" /></a>
+</p>
+<h3><p align="center">A progressive framework for scraping <b>audio files</b> of word pronunciations from the <a href="http://dictionary.cambridge.org">dictionary.cambridge.org</a><br><br><br><img src="Design/Presen.gif" width="800"/><br><br></p></h3>
 
 
 ## Quick start▶️
 
-You can just download .exe file:
+<h4>The simplest way is to install portable version from <b>.exe</b> file:<br><br>https://github.com/astrosander/cambridge-dictionary-audio/releases/latest</h4>
 
-https://github.com/astrosander/cambridge-dictionary-audio/releases/tag/cambridge-dictionary
-
-Or install with python:
+<br>
+Or install with <b>python</b>:
 
 ## Python Installation <img align="center"  width="28px" src="https://github.com/astrosander/WallTime/blob/main/Themes/snakes.png" />
 
@@ -19,7 +19,7 @@ Download or clone this GitHub repository
 install requirements with:
 
 ```sh
-pip3 install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 ## Start cambridge-dictionary-audio ▶️
