@@ -74,8 +74,6 @@ def define(word, save_path,f,printable,mode,
         main_block.extend(primal_block[dictionary_index].find_all("div", {"class": "pr idiom-block"}))
 
         for entity in main_block:
-
-
             if f == 0:
                 header_block = entity.find("div", {"class": "dpos-h"})
 
@@ -111,20 +109,25 @@ def define(word, save_path,f,printable,mode,
 
             else:
                 for def_and_sent_block in entity.find_all("div", {'class': 'def-block ddef_block'}):
+                    found_definition_block = def_and_sent_block.find("div", {"class": "ddef_h"})
+                    if (found_definition_block is not None) and printable:
+                        found_definition_string = found_definition_block.find("div", {'class': "def ddef_d db"})
+                        definition = "" if found_definition_string is None else found_definition_string.text
+                        print(f"\033[96m{definition}\033[96m")
+
+
                     image_section = def_and_sent_block.find("div", {"class": "dimg"})
 
                     sentences_and_translation_block = def_and_sent_block.find("div", {"class": "def-body"})
                     
                     sentence_blocks = []
+    
                     x=[]
-                    if sentences_and_translation_block is not None:
+                    if (sentences_and_translation_block is not None) and printable:
                         definition_translation_block = sentences_and_translation_block.find(
                             lambda tag: tag.name == "span" and any(class_attr == "trans" for class_attr in tag.attrs.get("class", []))) 
 
                         x = definition_translation_block.text if definition_translation_block is not None else ""
                         sentence_blocks = sentences_and_translation_block.find_all("div", {"class": "examp dexamp"})
-                        
-                        if printable:
-                            print(x)
-
+                        print(f"\033[94m{x}\033[94m")
     return ans
