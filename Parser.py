@@ -43,6 +43,7 @@ def get_phonetics(
 
         if ("uk" in ipa_parent) and printable:
             print('\033[93m'+child.text+'\033[93m')
+            return uk_audio_links
 
     return uk_audio_links
 
@@ -90,10 +91,7 @@ def define(word, save_path,f,printable,mode,
                 if ans == "" :
                     try:
                         ans = uk_audio_links[0]
-
-
                         page = requests.get(ans, headers=request_headers, timeout=timeout)
-
 
                         with open(save_path,'wb') as f:
                             f.write(page.content)
@@ -102,21 +100,21 @@ def define(word, save_path,f,printable,mode,
                         if printable:
                             print('\033[92mSucceful file downloaded to \033[92m\033[96m' + save_path+'\033[96m')
 
-                        return ans
-
-
                     except: pass
 
-            else:
                 for def_and_sent_block in entity.find_all("div", {'class': 'def-block ddef_block'}):
                     found_definition_block = def_and_sent_block.find("div", {"class": "ddef_h"})
                     if (found_definition_block is not None) and printable:
                         found_definition_string = found_definition_block.find("div", {'class': "def ddef_d db"})
-                        definition = "" if found_definition_string is None else found_definition_string.text
-                        print(f"\033[96m{definition}\033[96m")
+                        definition = f"\n\033[96m{found_definition_string.text}\033[96m"
+                        if found_definition_string:
+                            print(definition.replace(":", ""))
+                            break
 
+                return ans
 
-                    image_section = def_and_sent_block.find("div", {"class": "dimg"})
+            else:
+                for def_and_sent_block in entity.find_all("div", {'class': 'def-block ddef_block'}):
 
                     sentences_and_translation_block = def_and_sent_block.find("div", {"class": "def-body"})
                     
