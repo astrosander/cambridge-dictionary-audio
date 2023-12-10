@@ -5,6 +5,9 @@
 </p>
 <h4><p align="center">A progressive framework for scraping <b>audio files</b> of word pronunciations from the <a href="http://dictionary.cambridge.org">dictionary.cambridge.org</a><br><br><br><img src="Design/Presen.gif" width="800"/><br><br></p></h4>
 
+<p align="center">
+<img src="https://github.com/astrosander/cambridge-dictionary-audio/assets/69795340/1dff6983-8c30-42cb-a46a-8f66d484fcab" width="800"/>
+  <br><br></p>
 
 ## Quick start▶️
 
