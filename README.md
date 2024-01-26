@@ -8,29 +8,27 @@
 
 ## Quick start▶️
 
-<h4>The simplest way is to install portable version from <b>.exe</b> file:<br><br>https://github.com/astrosander/cambridge-dictionary-audio/releases/latest</h4>
-
+<h4>The simplest method is to install the portable version using the .exe file, available at <a href="https://github.com/astrosander/cambridge-dictionary-audio/releases/latest">this link</a>.
 <br>
 Or install with <b>python</b>:
 
 ## Python Installation <img align="center"  width="28px" src="https://github.com/astrosander/WallTime/blob/main/Themes/snakes.png" />
 
-Download or clone this GitHub repository
-install requirements with:
+Alternatively, you can install the tool using Python. 
+Download or clone the GitHub repository and install the necessary requirements with:
 
 ```sh
 pip install -r requirements.txt
 ```
 
-## Start cambridge-dictionary-audio ▶️
+## Launch the Scraper:
 
-Run main.py
+Run `main.py` or open `start.bat` after installation.
 
-```sh
-open start.bat
-```
+## Usage:
 
-After launching, you will need to enter a word or phrase and then wait about 1-2 seconds. Once downloaded, the .mp3 file will appear in the folder and the sound will play automatically.
+After launching, input the desired word or phrase and wait for approximately 1-2 seconds(depending on your internet speed).
+The downloaded `.mp3` file will appear in the designated folder, and the sound will play automatically.
 
 ## Commands ⌨️
 
