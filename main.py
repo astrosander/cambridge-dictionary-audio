@@ -55,7 +55,7 @@ def Start():
 	os.system('cls')
 	print(word)
 	
-	save_path = f"{folder_path}\\{word}.mp3" #Generating of file name
+	save_path = f"{folder_path}/{word}.mp3" #Generating of file name
 	
 	print("\033[92mDownloading..\033[92m")
 	
